@@ -20,6 +20,10 @@ pipeline {
                        steps {
                           sh "echo ${ENV_URL}" 
                         }
+                        input { 
+                         message "Should we continue?"
+                           ok "Yes, we should."
+                          submitter "alice,bob"
                     }
                     stage("This is second stage") {
                      environment {
