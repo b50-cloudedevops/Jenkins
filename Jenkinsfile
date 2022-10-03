@@ -2,8 +2,17 @@ pipeline {
        agent  any
 
        environment {
-         ENV_URL="pipeline.google.com"
+        SSH_CRED= credentials('SSH')
+        ENV_URL="pipeline.google.com"
        }
+       parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+    }
+
                stages {
                    stage('This is first stage') {
                        steps {
@@ -12,10 +21,11 @@ pipeline {
                     }
                     stage("This is second stage") {
                      environment {
-         ENV_URL="stgaed.google.com"
+                        ENV_URL="stgaed.google.com"
                                   } 
                         steps {
                             sh  "echo environment URL is  ${ENV_URL}"
+                            sh "Env variables is ${ENV}"
                         }
                     }
                 }
