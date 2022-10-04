@@ -2,20 +2,20 @@ pipeline {
     agent any 
      stages {
          stage('Parallel') {
-            parallel {
-            steps {
+          parallel {
+            stage('one') {
+              steps {
                 echo 'sleep 30'
-            }
-         }
+                }
+          }
 
-         stage('two') {
+          stage('two') {
             steps {
-
                 echo 'sleep 30'
             }
          }
      }
      
      }
-
+     }
 }
