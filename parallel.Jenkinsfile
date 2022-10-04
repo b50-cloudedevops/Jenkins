@@ -1,11 +1,14 @@
 pipeline {
-    agent any 
+    agent {
+        label 'Slave'
+    }
      stages {
          stage('Parallel') {
           parallel {
             stage('one') {
               steps {
                 echo 'sleep 30'
+                sh "hostname"
                 }
           }
 
@@ -14,8 +17,14 @@ pipeline {
                 echo 'sleep 30'
             }
          }
-     }
+       }
+    }
+
+  }
+     post {
+        success {
+            cleanWs()
+        }
      
-     }
      }
 }
